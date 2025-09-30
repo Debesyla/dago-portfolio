@@ -1,6 +1,6 @@
 ---
 title: "Hello World Project 2"
-date: 2024-03-15
+date: 2055-12-16
 stack: ["Astro", "UnoCSS"]
 screens: ["placeholder.png"]
 ---
