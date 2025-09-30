@@ -1,14 +1,22 @@
-import { defineConfig, presetUno } from 'unocss'
+import { defineConfig, presetMini } from "unocss";
 
 export default defineConfig({
-  presets: [presetUno()],
+  presets: [presetMini()],
   theme: {
     colors: {
-      primary: '#FFBF00',
-      bg: '#222',
+      primary: "#FFBF00",
+      bg: "#222",
     },
   },
-  
+
+  rules: [
+    [
+      'list-none', {
+        'list-style-type': 'none'
+      }
+    ],
+  ],
+
   preflights: [
     {
       getCSS: ({ theme }) => {
@@ -105,8 +113,9 @@ export default defineConfig({
             background: ${colors.primary || "#ffbf00"};
             color: ${colors.bg || "#222"}
           }
+
         `;
-      }
-    }
+      },
+    },
   ],
-})
+});

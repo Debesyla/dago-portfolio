@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@unocss/astro": "^66.5.2",
+    "@unocss/preset-mini": "^66.5.2",
     "unocss": "^66.5.2"
   }
 }
