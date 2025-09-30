@@ -6,22 +6,26 @@ import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const renderedProjects = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await project.render();
+    return { project, Content };
+  })
+);
 ---
 
 <BaseLayout title="dago / portfolio">
   <Timeline>
-    {projects.map(async (project) => {
-      const { Content } = await project.render();
-      return (
-        <ProjectBlock
-          title={project.data.title}
-          date={project.data.date.toISOString()}
-          stack={project.data.stack}
-          screenshots={project.data.screens}
-        >
-          <Content />
-        </ProjectBlock>
-      )
-    })}
+    {renderedProjects.map(({ project, Content }) => (
+      <ProjectBlock
+        title={project.data.title}
+        date={project.data.date.toISOString()}
+        stack={project.data.stack}
+        screenshots={project.data.screens}
+      >
+        <Content />
+      </ProjectBlock>
+    ))}
   </Timeline>
 </BaseLayout>
