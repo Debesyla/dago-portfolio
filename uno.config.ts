@@ -1,6 +1,7 @@
 import { defineConfig, presetUno } from 'unocss'
 
 export default defineConfig({
+  presets: [presetUno()],
   theme: {
     colors: {
       primary: '#FFBF00',
@@ -92,10 +93,6 @@ export default defineConfig({
             padding-left: var(--lg)
           }
 
-          ul li+li,ol li+li {
-            margin-top: var(--md)
-          }
-
           ul li::marker,ol li::marker {
             color: rgba(255,191,0,.325)
           }
@@ -107,23 +104,6 @@ export default defineConfig({
           ::selection {
             background: ${colors.primary || "#ffbf00"};
             color: ${colors.bg || "#222"}
-          }
-
-          #content>*+* {
-            margin-top: var(--md)
-          }
-
-          #content>ul {
-            padding-top: var(--md);
-            list-style-type: decimal
-          }
-
-          #content>ul li::marker {
-            font-size: .75em
-          }
-
-          #colophon {
-            margin-top: var(--2xl)
           }
         `;
       }

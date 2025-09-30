@@ -18,30 +18,33 @@ const dateObj = new Date(date);
 const formatted = dateObj.toLocaleDateString('lt-LT');
 ---
 
-<article class="project-block">
-  <header>
+<article class="project-block space-y-6">
+  <header class="space-y-2">
     <h2>{title}</h2>
-    <time datetime={date}>{formatted}</time>
+    
+    <div class="flex gap-4 items-center leading-none text-sm flex-wrap">
+      <ul class="stack flex flex-wrap gap-2 list-none p-0">
+        {stack.map((t) => (
+          <li class="m-0 bg-primary text-bg py-1 px-2">{t}</li>
+        ))}
+      </ul>
+
+      <time datetime={date} class="">{formatted}</time>
+    </div>
   </header>
 
   {screenshots.length > 0 && (
-    <div class="screens">
+    <div class="screens space-y-4">
       {screenshots.map((screen) => (
         <figure class="screen">
-          <Image src={screen.image} alt={screen.alt || ""} />
-          {screen.caption && <figcaption>{screen.caption}</figcaption>}
+          <Image src={screen.image} alt={screen.alt || ""} class="w-full h-auto" />
+          {screen.caption && <figcaption class="text-sm mt-1">{screen.caption}</figcaption>}
         </figure>
       ))}
     </div>
   )}
 
-  <ul class="stack">
-    {stack.map((t) => (
-      <li>{t}</li>
-    ))}
-  </ul>
-
-  <div class="content">
+  <div class="content space-y-4">
     <slot />
   </div>
 </article>
