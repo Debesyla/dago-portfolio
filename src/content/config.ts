@@ -6,7 +6,11 @@ const projects = defineCollection({
     title: z.string(),
     date: z.date(),
     stack: z.array(z.string()),
-    screens: z.array(image()).optional(),
+    screens: z.array(z.object({
+      image: image(),
+      caption: z.string().optional(),
+      alt: z.string().optional(),
+    })).optional(),
   }),
 });
 

@@ -6,7 +6,11 @@ export interface Props {
   title: string;
   date: string; // ISO string
   stack: string[];
-  screenshots?: ImageMetadata[];
+  screenshots?: Array<{
+    image: ImageMetadata;
+    caption?: string;
+    alt?: string;
+  }>;
 }
 
 const { title, date, stack, screenshots = [] } = Astro.props;
@@ -21,11 +25,14 @@ const formatted = dateObj.toLocaleDateString('lt-LT');
   </header>
 
   {screenshots.length > 0 && (
-    <figure class="screens">
-      {screenshots.map((img) => (
-        <Image src={img} alt={`${title} screenshot`} />
+    <div class="screens">
+      {screenshots.map((screen) => (
+        <figure class="screen">
+          <Image src={screen.image} alt={screen.alt || ""} />
+          {screen.caption && <figcaption>{screen.caption}</figcaption>}
+        </figure>
       ))}
-    </figure>
+    </div>
   )}
 
   <ul class="stack">
