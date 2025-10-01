@@ -6,6 +6,18 @@
   <h1>/portfolio</h1>
 </header>
 
-<section class="space-y-12">
+<section class="timeline space-y-12 relative">
   <slot />
 </section>
+
+<style>
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: calc(0.25rem - 1px); /* aligns with ProjectBlock dot */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: color-mix(in oklab, currentColor 20%, transparent);
+  }
+</style>
