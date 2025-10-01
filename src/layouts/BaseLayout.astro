@@ -20,5 +20,17 @@ const { title = "dago / portfolio" } = Astro.props;
     <main class="space-y-4">
       <slot />
     </main>
+
+    <footer class="mt-12">
+      <a href="https://notbyai.fyi" target="_blank" rel="noopener">
+        <img 
+          src="/notbyai.png" 
+          srcset="/notbyai.png 1x, /notbyai@2x.png 2x"
+          alt="Not by AI"
+          width="132"
+          height="43"
+          />
+      </a>
+    </footer>
   </body>
 </html>
