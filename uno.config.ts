@@ -125,6 +125,26 @@ export default defineConfig({
             background: ${colors.primary || "#ffbf00"};
             color: ${colors.bg || "#222"}
           }
+
+          button {
+            background: transparent;
+            border: 1px solid ${colors.primary || "#ffbf00"};
+            color: ${colors.primary || "#ffbf00"};
+            padding: var(--xs) var(--sm);
+            cursor: pointer;
+            user-select: none;
+            
+
+            &:hover {
+              background: ${colors.primary || "#ffbf00"};
+              color: ${colors.bg || "#222"};
+            }
+
+            .active &, &[aria-pressed="true"] {
+              background: ${colors.primary || "#ffbf00"};
+              color: ${colors.bg || "#222"};
+            }
+          }
         `;
       },
     },

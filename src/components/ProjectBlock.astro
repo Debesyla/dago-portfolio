@@ -16,9 +16,11 @@ export interface Props {
 const { title, date, stack, screenshots = [] } = Astro.props;
 const dateObj = new Date(date);
 const formatted = dateObj.toLocaleDateString('lt-LT');
+const year = String(dateObj.getFullYear());
+const tags = stack.join(',');
 ---
 
-<article class="project-block space-y-6 relative">
+<article class="project-block space-y-6 relative" data-year={year} data-tags={tags}>
   <span class="timeline-dot" aria-hidden="true"></span>
   
   <header class="space-y-2">
@@ -58,12 +60,10 @@ const formatted = dateObj.toLocaleDateString('lt-LT');
 
   .timeline-dot {
     position: absolute;
-    left: 0rem;
+    left: calc(-0.5rem / 2 + 1px); /* aligns with timeline line */
     top: 0.625rem; /* aligning with heading */
     width: 0.5rem;
     height: 0.5rem;
-    translate: calc(1.25rem - 50%), 0;
     background: currentColor;
-    border-radius: 9999px;
   }
 </style>

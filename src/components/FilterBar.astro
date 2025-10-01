@@ -1,0 +1,137 @@
+---
+export interface Props {
+  tags: string[];
+}
+
+const { tags = [] } = Astro.props as Props;
+const sorted = [...tags].sort((a, b) => a.localeCompare(b));
+---
+
+<div class="filterbar text-sm space-y-2" data-filterbar>
+  <div class="flex items-center justify-between gap-2">
+    <span>Filtras:</span>
+
+    <button class="clear-btn ml-auto border-none text-xs disabled:hidden leading-none" type="button" disabled>Rodyti viską</button>
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    {sorted.map((t) => (
+      <button class="tag-btn" type="button" data-tag={t} data-tag-lc={t.toLowerCase()} aria-pressed="false">{t}</button>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  const initOne = (container) => {
+    const tagButtons = Array.from(container.querySelectorAll('.tag-btn'));
+    const clearBtn = container.querySelector('.clear-btn');
+
+    const getSelected = () => tagButtons
+      .filter((b) => b.getAttribute('aria-pressed') === 'true')
+      .map((b) => b.dataset.tagLc)
+      .filter(Boolean)
+      .map((s) => String(s))
+      .sort();
+
+    const setButtonState = (btn, pressed) => {
+      btn.setAttribute('aria-pressed', String(pressed));
+      btn.classList.toggle('active', pressed);
+    };
+
+    const applyVisibility = (selected) => {
+      const blocks = Array.from(document.querySelectorAll('.project-block'));
+      const yearSections = Array.from(document.querySelectorAll('.year-section'));
+
+      if (selected.length === 0) {
+        blocks.forEach((el) => el.removeAttribute('hidden'));
+        yearSections.forEach((sec) => sec.removeAttribute('hidden'));
+        return;
+      }
+
+      blocks.forEach((el) => {
+        const tags = (el.dataset.tags || '')
+          .split(',')
+          .map((s) => s.trim().toLowerCase())
+          .filter(Boolean);
+        const matches = tags.some((t) => selected.includes(t));
+        if (matches) el.removeAttribute('hidden');
+        else el.setAttribute('hidden', '');
+      });
+
+      yearSections.forEach((sec) => {
+        const hasVisible = sec.querySelector('.project-block:not([hidden])') !== null;
+        if (hasVisible) sec.removeAttribute('hidden');
+        else sec.setAttribute('hidden', '');
+      });
+    };
+
+    const syncURL = (selected) => {
+      const url = new URL(location.href);
+      if (selected.length > 0) url.searchParams.set('tags', selected.join(','));
+      else url.searchParams.delete('tags');
+      history.replaceState(null, '', url);
+    };
+
+    const updateClearBtn = (selected) => {
+      if (!clearBtn) return;
+      clearBtn.disabled = selected.length === 0;
+    };
+
+    const handleClick = (btn) => {
+      const pressed = btn.getAttribute('aria-pressed') === 'true';
+      setButtonState(btn, !pressed);
+      const selected = getSelected();
+      applyVisibility(selected);
+      syncURL(selected);
+      updateClearBtn(selected);
+    };
+
+    // Event delegation for robustness
+    container.addEventListener('click', (e) => {
+      const btn = e.target && (e.target.closest ? e.target.closest('.tag-btn') : null);
+      if (btn && container.contains(btn)) {
+        handleClick(btn);
+      }
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        tagButtons.forEach((b) => setButtonState(b, false));
+        const selected = [];
+        applyVisibility(selected);
+        syncURL(selected);
+        updateClearBtn(selected);
+      });
+    }
+
+    // Initialize from URL
+    const initFromURL = () => {
+      const url = new URL(location.href);
+      const tagsParam = url.searchParams.get('tags');
+      if (!tagsParam) return;
+      const selected = tagsParam
+        .split(',')
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean);
+      tagButtons.forEach((btn) => {
+        const lc = btn.dataset.tagLc;
+        setButtonState(btn, !!lc && selected.includes(lc));
+      });
+      const sel = getSelected();
+      applyVisibility(sel);
+      updateClearBtn(sel);
+    };
+
+    initFromURL();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
+      containers.forEach((c) => initOne(c));
+    }, { once: true });
+  } else {
+    const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
+    containers.forEach((c) => initOne(c));
+  }
+</script>
