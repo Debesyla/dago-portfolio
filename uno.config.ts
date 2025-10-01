@@ -27,6 +27,7 @@ export default defineConfig({
     ],
   ],
 
+  // NOTE: importing base theme from other dago.lt sites. Would make sense to rewrite this later, once brand theme is decided @TODO
   preflights: [
     {
       getCSS: ({ theme }) => {
@@ -73,11 +74,11 @@ export default defineConfig({
             text-wrap: balance
           }
 
-          #root,#__next {
+          #root, #__next {
             isolation: isolate
           }
 
-          a,* {
+          a, * {
             color: inherit
           }
 
@@ -112,7 +113,7 @@ export default defineConfig({
             padding-left: var(--lg)
           }
 
-          ul li::marker,ol li::marker {
+          ul li::marker, ol li::marker {
             color: rgba(255,191,0,.325)
           }
 
@@ -124,7 +125,6 @@ export default defineConfig({
             background: ${colors.primary || "#ffbf00"};
             color: ${colors.bg || "#222"}
           }
-
         `;
       },
     },
