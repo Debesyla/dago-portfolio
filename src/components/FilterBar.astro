@@ -22,7 +22,7 @@ const sorted = [...tags].sort((a, b) => a.localeCompare(b));
 </div>
 
 <script is:inline>
-  const initOne = (container) => {
+  const initFilter = (container) => {
     const tagButtons = Array.from(container.querySelectorAll('.tag-btn'));
     const clearBtn = container.querySelector('.clear-btn');
 
@@ -128,10 +128,10 @@ const sorted = [...tags].sort((a, b) => a.localeCompare(b));
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
-      containers.forEach((c) => initOne(c));
+      containers.forEach((c) => initFilter(c));
     }, { once: true });
   } else {
     const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
-    containers.forEach((c) => initOne(c));
+    containers.forEach((c) => initFilter(c));
   }
 </script>
