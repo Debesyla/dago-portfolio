@@ -5,7 +5,9 @@ import ProjectBlock from '../components/ProjectBlock.astro';
 import FilterBar from '../components/FilterBar.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects'))
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter(p => import.meta.env.DEV || !p.data.draft)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 // Pre-render content and group by year for year dividers
