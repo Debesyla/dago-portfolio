@@ -11,16 +11,27 @@ export default defineConfig({
 
   rules: [
     [
-      'list-none', {
-        'list-style-type': 'none'
-      }
+      "list-none",
+      {
+        "list-style-type": "none",
+      },
+    ],
+    [
+      /^space-y-(\d+)$/, ([, d], { symbols }) => ({
+        [symbols.body]: `
+          & > :not(:last-child) {
+            margin-bottom: ${Number(d) / 4}rem;
+          }
+        `,
+      }),
     ],
   ],
 
   preflights: [
     {
       getCSS: ({ theme }) => {
-        const colors = theme.colors || {};
+        const colors =
+          (theme as { colors?: Record<string, string> }).colors || {};
         return `
           *,*::before,*::after {
             box-sizing: border-box
