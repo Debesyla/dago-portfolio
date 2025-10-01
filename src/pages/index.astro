@@ -7,25 +7,49 @@ import { getCollection } from 'astro:content';
 const projects = (await getCollection('projects'))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
+// Pre-render content and group by year for year dividers
 const renderedProjects = await Promise.all(
   projects.map(async (project) => {
     const { Content } = await project.render();
-    return { project, Content };
+    const year = new Date(project.data.date).getFullYear();
+    return { project, Content, year };
   })
 );
+
+const byYear = renderedProjects.reduce<Record<string, typeof renderedProjects>>( (acc, item) => {
+  const k = String(item.year);
+  (acc[k] ||= []).push(item);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
 ---
 
 <BaseLayout title="dago / portfolio">
   <Timeline>
-    {renderedProjects.map(({ project, Content }) => (
-      <ProjectBlock
-        title={project.data.title}
-        date={project.data.date.toISOString()}
-        stack={project.data.stack}
-        screenshots={project.data.screens}
-      >
-        <Content />
-      </ProjectBlock>
+    {years.map((y) => (
+      <section>
+        <h3 class="year sticky top-2 z-10 bg-bg/80 backdrop-blur px-2 py-1 inline-block">{y}</h3>
+        
+        <div class="space-y-12 mt-4">
+          {byYear[y].map(({ project, Content }) => (
+            <ProjectBlock
+              title={project.data.title}
+              date={project.data.date.toISOString()}
+              stack={project.data.stack}
+              screenshots={project.data.screens}
+            >
+              <Content />
+            </ProjectBlock>
+          ))}
+        </div>
+      </section>
     ))}
   </Timeline>
 </BaseLayout>
+
+<style>
+  .year {
+    border-left: 4px solid currentColor;
+  }
+</style>
