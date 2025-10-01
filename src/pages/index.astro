@@ -29,28 +29,32 @@ const uniqueTags = Array.from(new Set(projects.flatMap(p => p.data.stack))).sort
 
 <BaseLayout title="dago / portfolio">
   <Timeline>
-    <FilterBar tags={uniqueTags} />
+    {projects.length > 0 ? (
+      <FilterBar tags={uniqueTags} />
 
-    <div class="timeline relative space-y-20">
-      {years.map((y) => (
-        <section class="year-section">
-          <h2 class="year sticky top-2 z-10 bg-bg pl-[calc(1.25rem_-_2px)] pr-2 py-2 inline-block leading-none">{y}</h2>
+      <div class="timeline relative space-y-20">
+        {years.map((y) => (
+          <section class="year-section">
+            <h2 class="year sticky top-2 z-10 bg-bg pl-[calc(1.25rem_-_2px)] pr-2 py-2 inline-block leading-none">{y}</h2>
 
-          <div class="space-y-12 mt-4">
-            {byYear[y].map(({ project, Content }) => (
-              <ProjectBlock
-                title={project.data.title}
-                date={project.data.date.toISOString()}
-                stack={project.data.stack}
-                screenshots={project.data.screens}
-              >
-                <Content />
-              </ProjectBlock>
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
+            <div class="space-y-12 mt-4">
+              {byYear[y].map(({ project, Content }) => (
+                <ProjectBlock
+                  title={project.data.title}
+                  date={project.data.date.toISOString()}
+                  stack={project.data.stack}
+                  screenshots={project.data.screens}
+                >
+                  <Content />
+                </ProjectBlock>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <p>Bus. ;-)</p>
+    )}
   </Timeline>
 </BaseLayout>
 
