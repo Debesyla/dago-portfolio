@@ -40,9 +40,9 @@ const tags = stack.join(',');
   {screenshots.length > 0 && (
     <div class="screens space-y-4">
       {screenshots.map((screen) => (
-        <figure class="screen">
+        <figure class="screen relative m-0">
           <Image src={screen.image} alt={screen.alt || ""} class="w-full h-auto" />
-          {screen.caption && <figcaption class="text-sm mt-1">{screen.caption}</figcaption>}
+          {screen.caption && <figcaption class="text-sm absolute bottom-0 left-0 bg-bg bg-opacity-50 px-2 py-1">{screen.caption}</figcaption>}
         </figure>
       ))}
     </div>
