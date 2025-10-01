@@ -18,9 +18,11 @@ const dateObj = new Date(date);
 const formatted = dateObj.toLocaleDateString('lt-LT');
 ---
 
-<article class="project-block space-y-6">
+<article class="project-block space-y-6 relative">
+  <span class="timeline-dot" aria-hidden="true"></span>
+  
   <header class="space-y-2">
-    <h2>{title}</h2>
+    <h3>{title}</h3>
     
     <div class="flex gap-4 items-center leading-none text-sm flex-wrap">
       <ul class="stack flex flex-wrap gap-2 list-none p-0">
@@ -48,3 +50,20 @@ const formatted = dateObj.toLocaleDateString('lt-LT');
     <slot />
   </div>
 </article>
+
+<style>
+  .project-block {
+    padding-left: 1.5rem; 
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 0rem;
+    top: 0.625rem; /* aligning with heading */
+    width: 0.5rem;
+    height: 0.5rem;
+    translate: calc(1.25rem - 50%), 0;
+    background: currentColor;
+    border-radius: 9999px;
+  }
+</style>
