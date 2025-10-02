@@ -1,13 +1,14 @@
 ---
 title: "Test Project"
 date: 2025-10-01
-draft: true
 users: "Internal testing"
+url: https://example.com
 stack: ["Astro", "TypeScript", "UnoCSS"]
 screens:
   - image: ./test-file.png
     caption: "Test caption"
     alt: "Test alt"
+draft: true
 ---
 
 This is a sample project description that outlines the key features and technologies used. The main goal of this project was to create a fast, modern, and accessible web application.
