@@ -45,6 +45,7 @@ const uniqueTags = Array.from(new Set(projects.flatMap(p => p.data.stack))).sort
                   title={project.data.title}
                   date={project.data.date.toISOString()}
                   users={project.data.users}
+                  url={project.data.url}
                   stack={project.data.stack}
                   screenshots={project.data.screens}
                 >

@@ -7,6 +7,7 @@ export interface Props {
   title: string;
   date: string; // ISO string
   users?: string;
+  url?: string;
   stack: string[];
   screenshots?: Array<{
     image: ImageMetadata;
@@ -15,7 +16,7 @@ export interface Props {
   }>;
 }
 
-const { title, date, users, stack, screenshots = [] } = Astro.props;
+const { title, date, users, url, stack, screenshots = [] } = Astro.props;
 const dateObj = new Date(date);
 const formatted = dateObj.toLocaleDateString('lt-LT');
 const year = String(dateObj.getFullYear());
@@ -26,7 +27,14 @@ const tags = stack.join(',');
   <span class="timeline-dot" aria-hidden="true"></span>
   
   <header class="space-y-2">
-    <h3>{title}</h3>
+    <h3>{title}
+      {url && (
+        <a href={url} target="_blank" rel="noopener noreferrer" title={`Nuoroda į šį projektą: ${title}`} class="inline-block align-middle hover:bg-primary hover:text-bg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          <span class="sr-only">Nuoroda į projektą</span>
+        </a>
+      )}
+    </h3>
     
     <div class="flex gap-x-6 gap-y-4 items-center leading-none text-sm flex-wrap">
       <ul class="stack flex flex-wrap gap-2 list-none p-0">

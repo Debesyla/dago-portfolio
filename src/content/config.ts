@@ -6,6 +6,7 @@ const projects = defineCollection({
     title: z.string(),
     date: z.date(),
     users: z.string().optional(),
+    url: z.string().url().optional(),
     draft: z.boolean().optional(),
     stack: z.array(z.string()),
     screens: z.array(z.object({
