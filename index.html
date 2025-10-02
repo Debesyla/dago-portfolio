@@ -1,1 +1,281 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/dago-icon.png"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.14.1"><title>dago / portfolio</title><!-- SEO --><meta name="description" content="Rodau ką esu sukūręs: Danieliaus IT darbų portfolio. (Tik techniniai darbai ir tik vartotojų naudojami projektai; be AI generuotų demo ir kitos kūrybos, vadybos.)"><meta name="author" content="Dago"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://portfolio.dago.lt/"><meta property="og:title" content="dago / portfolio"><meta property="og:description" content="Rodau ką esu sukūręs: Danieliaus IT darbų portfolio. (Tik techniniai darbai ir tik vartotojų naudojami projektai; be AI generuotų demo ir kitos kūrybos, vadybos.)"><!-- <meta property="og:image" content="/og-image.jpg" /> --><link rel="stylesheet" href="/_astro/index.Box2hh6f.css"></head> <body> <main class="space-y-4">  <header> <h1>/portfolio</h1> </header> <section class="space-y-12"> <p data-astro-cid-j7pv25f6>Bus. ;-)</p> </section>  </main> <footer class="mt-12"> <a href="https://notbyai.fyi" target="_blank" rel="noopener"> <img src="/notbyai.png" srcset="/notbyai.png 1x, /notbyai@2x.png 2x" alt="Not by AI" width="132" height="43"> </a> </footer> </body></html> 
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/dago-icon.png"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.14.1"><title>dago / portfolio</title><!-- SEO --><meta name="description" content="Rodau ką esu sukūręs: Danieliaus IT darbų portfolio. (Tik techniniai darbai ir tik vartotojų naudojami projektai; be AI generuotų demo ir kitos kūrybos, vadybos.)"><meta name="author" content="Dago"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://portfolio.dago.lt/"><meta property="og:title" content="dago / portfolio"><meta property="og:description" content="Rodau ką esu sukūręs: Danieliaus IT darbų portfolio. (Tik techniniai darbai ir tik vartotojų naudojami projektai; be AI generuotų demo ir kitos kūrybos, vadybos.)"><!-- <meta property="og:image" content="/og-image.jpg" /> --><link rel="stylesheet" href="/_astro/index.CoLTvxre.css"></head> <body> <main class="space-y-4">  <header> <h1>/portfolio</h1> </header> <section class="space-y-12"> <div class="filterbar text-sm space-y-2" data-filterbar> <div class="flex items-center justify-between gap-2"> <span>Filtras:</span> <button class="clear-btn ml-auto border-none text-xs disabled:hidden leading-none" type="button" disabled>Rodyti viską</button> </div> <div class="flex flex-wrap gap-2"> <button class="tag-btn" type="button" data-tag="jQuery" data-tag-lc="jquery" aria-pressed="false">jQuery</button> </div> </div> <script>
+  const initFilter = (container) => {
+    const tagButtons = Array.from(container.querySelectorAll('.tag-btn'));
+    const clearBtn = container.querySelector('.clear-btn');
+
+    const getSelected = () => tagButtons
+      .filter((b) => b.getAttribute('aria-pressed') === 'true')
+      .map((b) => b.dataset.tagLc)
+      .filter(Boolean)
+      .map((s) => String(s))
+      .sort();
+
+    const setButtonState = (btn, pressed) => {
+      btn.setAttribute('aria-pressed', String(pressed));
+      btn.classList.toggle('active', pressed);
+    };
+
+    const applyVisibility = (selected) => {
+      const blocks = Array.from(document.querySelectorAll('.project-block'));
+      const yearSections = Array.from(document.querySelectorAll('.year-section'));
+
+      if (selected.length === 0) {
+        blocks.forEach((el) => el.removeAttribute('hidden'));
+        yearSections.forEach((sec) => sec.removeAttribute('hidden'));
+        return;
+      }
+
+      blocks.forEach((el) => {
+        const tags = (el.dataset.tags || '')
+          .split(',')
+          .map((s) => s.trim().toLowerCase())
+          .filter(Boolean);
+        const matches = tags.some((t) => selected.includes(t));
+        if (matches) el.removeAttribute('hidden');
+        else el.setAttribute('hidden', '');
+      });
+
+      yearSections.forEach((sec) => {
+        const hasVisible = sec.querySelector('.project-block:not([hidden])') !== null;
+        if (hasVisible) sec.removeAttribute('hidden');
+        else sec.setAttribute('hidden', '');
+      });
+    };
+
+    const syncURL = (selected) => {
+      const url = new URL(location.href);
+      if (selected.length > 0) url.searchParams.set('tags', selected.join(','));
+      else url.searchParams.delete('tags');
+      history.replaceState(null, '', url);
+    };
+
+    const updateClearBtn = (selected) => {
+      if (!clearBtn) return;
+      clearBtn.disabled = selected.length === 0;
+    };
+
+    const handleClick = (btn) => {
+      const pressed = btn.getAttribute('aria-pressed') === 'true';
+      setButtonState(btn, !pressed);
+      const selected = getSelected();
+      applyVisibility(selected);
+      syncURL(selected);
+      updateClearBtn(selected);
+    };
+
+    // Event delegation for robustness
+    container.addEventListener('click', (e) => {
+      const btn = e.target && (e.target.closest ? e.target.closest('.tag-btn') : null);
+      if (btn && container.contains(btn)) {
+        handleClick(btn);
+      }
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        tagButtons.forEach((b) => setButtonState(b, false));
+        const selected = [];
+        applyVisibility(selected);
+        syncURL(selected);
+        updateClearBtn(selected);
+      });
+    }
+
+    // Initialize from URL
+    const initFromURL = () => {
+      const url = new URL(location.href);
+      const tagsParam = url.searchParams.get('tags');
+      if (!tagsParam) return;
+      const selected = tagsParam
+        .split(',')
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean);
+      tagButtons.forEach((btn) => {
+        const lc = btn.dataset.tagLc;
+        setButtonState(btn, !!lc && selected.includes(lc));
+      });
+      const sel = getSelected();
+      applyVisibility(sel);
+      updateClearBtn(sel);
+    };
+
+    initFromURL();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
+      containers.forEach((c) => initFilter(c));
+    }, { once: true });
+  } else {
+    const containers = Array.from(document.querySelectorAll('[data-filterbar]'));
+    containers.forEach((c) => initFilter(c));
+  }
+</script>
+
+      <div class="timeline relative space-y-20" data-astro-cid-j7pv25f6> <section class="year-section" data-astro-cid-j7pv25f6> <h2 class="year sticky top-2 z-10 bg-bg pl-[calc(1.25rem_-_2px)] pr-2 py-2 inline-block leading-none" data-astro-cid-j7pv25f6>2013</h2> <div class="space-y-12 mt-4" data-astro-cid-j7pv25f6> <article class="project-block space-y-6 relative" data-year="2013" data-tags="jQuery" data-astro-cid-mx25p445> <span class="timeline-dot" aria-hidden="true" data-astro-cid-mx25p445></span> <header class="space-y-2" data-astro-cid-mx25p445> <h3 data-astro-cid-mx25p445>Dažniausių lietuviškų žodžių tikrintuvas <a href="https://kaipisleistiknyga.lt/rasyk-aiskiau/" target="_blank" rel="noopener noreferrer" title="Nuoroda į šį projektą: Dažniausių lietuviškų žodžių tikrintuvas" class="inline-block align-middle hover:bg-primary hover:text-bg" data-astro-cid-mx25p445> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" data-astro-cid-mx25p445><path d="M7 7h10v10" data-astro-cid-mx25p445></path><path d="M7 17 17 7" data-astro-cid-mx25p445></path></svg> <span class="sr-only" data-astro-cid-mx25p445>Nuoroda į projektą</span> </a> </h3> <div class="flex gap-x-6 gap-y-4 items-center leading-none text-sm flex-wrap" data-astro-cid-mx25p445> <ul class="stack flex flex-wrap gap-2 list-none p-0" data-astro-cid-mx25p445> <li class="m-0 bg-primary text-bg py-1 px-2" data-astro-cid-mx25p445>jQuery</li> </ul> <time datetime="2013-12-01T00:00:00.000Z" class="" data-astro-cid-mx25p445>2013-12-01</time> <span class="users" data-astro-cid-mx25p445>~400 naudotojų</span> </div> </header> <div class="screens" data-astro-cid-mx25p445> <section class="slider relative z-0" role="region" aria-label="Dažniausių lietuviškų žodžių tikrintuvas screenshots" data-slider data-astro-cid-o3xv54xo><div class="viewport" tabindex="0" data-astro-cid-o3xv54xo><div class="track flex" data-astro-cid-o3xv54xo><figure class="slide relative m-0" data-astro-cid-o3xv54xo><img src="/_astro/dazniausiu-zodziu-tikrintuvas.BsxZCn0v_Z2utEwP.webp" alt="Įrankio „Rašyk aiškiau“ frontend screenshot su tekstu, kuriame kai kurie žodžiai pažymėti raudonai." draggable="false" data-astro-cid-o3xv54xo="true" loading="lazy" decoding="async" fetchpriority="auto" width="1117" height="702" class="slide-img"></figure></div></div></section><script>
+	(() => {
+	const RAFT = (cb) => requestAnimationFrame(cb);
+
+	const initSlider = (root) => {
+		const viewport = root.querySelector('.viewport');
+		const track = root.querySelector('.track');
+		const prev = root.querySelector('.nav.prev');
+		const next = root.querySelector('.nav.next');
+		if (!viewport || !track || !prev || !next) return;
+
+		let navUpdatePending = false;
+		const getMax = () => Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+		const showNav = () => {
+			const max = getMax();
+			const sc = viewport.scrollLeft;
+			const atStart = sc <= 2;
+			const atEnd = sc >= max - 2;
+			const overflow = max > 0;
+
+			// Always show buttons if there is overflow, otherwise hide them.
+			root.classList.toggle('has-overflow', overflow);
+
+			// Toggle disabled state for prev/next buttons
+			prev.classList.toggle('disabled', atStart);
+			next.classList.toggle('disabled', atEnd);
+
+			navUpdatePending = false;
+		};
+
+		const scheduleNavUpdate = () => {
+			if (navUpdatePending) return;
+			navUpdatePending = true;
+			RAFT(showNav);
+		}
+
+		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const scrollByPage = (dir) => {
+			const delta = viewport.clientWidth * dir;
+			const max = getMax();
+			const target = Math.max(0, Math.min(max, viewport.scrollLeft + delta));
+			try {
+				viewport.scrollTo({ left: target, behavior: prefersReduced ? 'auto' : 'smooth' });
+			} catch (_) {
+				viewport.scrollLeft = target; // Fallback
+			}
+		};
+
+		// Drag-to-scroll using Pointer Events
+		let dragging = false;
+		let startX = 0;
+		let startLeft = 0;
+		let moved = false;
+		let currentX = 0;
+		const onDown = (e) => {
+			dragging = true;
+			startX = e.clientX;
+			currentX = e.clientX;
+			startLeft = viewport.scrollLeft;
+			// Temporarily disable smooth scrolling and snapping for instant drag response
+			viewport.classList.add('dragging');
+			viewport.classList.add('no-snap');
+			viewport.style.scrollBehavior = 'auto';
+			viewport.setPointerCapture && viewport.setPointerCapture(e.pointerId);
+			moved = false;
+		};
+		const onMove = (e) => {
+			if (!dragging) return;
+			e.preventDefault(); // Prevent text selection, etc.
+			currentX = e.clientX;
+			const dx = currentX - startX;
+			if (Math.abs(dx) > 2) moved = true;
+			
+			// Update scroll position directly for maximum responsiveness
+			viewport.scrollLeft = startLeft - dx;
+		};
+		const onUp = (e) => {
+			const dx = currentX - startX;
+			const dragThreshold = viewport.clientWidth * 0.2; // 20% threshold
+			
+			dragging = false;
+			viewport.classList.remove('dragging');
+			viewport.classList.remove('no-snap');
+			viewport.releasePointerCapture && viewport.releasePointerCapture(e.pointerId);
+
+			const wasMoved = moved;
+			moved = false; // Reset for next interaction
+
+			// If a drag happened, prevent the upcoming click event from firing on the target.
+			// This is done by capturing the next click on the window and stopping it.
+			if (wasMoved) {
+				const swallowClick = (evt) => {
+					evt.preventDefault();
+					evt.stopPropagation();
+					window.removeEventListener('click', swallowClick, { capture: true });
+				};
+				window.addEventListener('click', swallowClick, { capture: true, once: true });
+			}
+			
+			// If dragged past threshold, animate to the next/prev slide.
+			if (Math.abs(dx) > dragThreshold) {
+				// Re-enable smooth scroll for the completion animation, then scroll.
+				viewport.style.scrollBehavior = prefersReduced ? 'auto' : 'smooth';
+				if (dx > 0) {
+					scrollByPage(-1); // Dragged right (go to previous)
+				} else {
+					scrollByPage(1); // Dragged left (go to next)
+				}
+			} else if (wasMoved) {
+				// If the drag was short, restore the original scroll behavior.
+				// The browser's native scroll-snap will handle snapping back.
+				viewport.style.scrollBehavior = '';
+			}
+		};
+
+		prev.addEventListener('click', () => scrollByPage(-1));
+		next.addEventListener('click', () => scrollByPage(1));
+
+		viewport.addEventListener('scroll', scheduleNavUpdate);
+		window.addEventListener('resize', scheduleNavUpdate);
+		viewport.addEventListener('pointerdown', onDown);
+
+		// With setPointerCapture, subsequent events are dispatched to the viewport
+		// even if the cursor leaves the element. 'pointerleave' is not needed.
+		viewport.addEventListener('pointermove', onMove);
+		viewport.addEventListener('pointerup', onUp);
+		viewport.addEventListener('pointercancel', onUp);
+
+		viewport.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') { e.preventDefault(); scrollByPage(-1); }
+			if (e.key === 'ArrowRight') { e.preventDefault(); scrollByPage(1); }
+		});
+
+		// Prevent image drag ghost and recalc when images load
+		root.querySelectorAll('img').forEach((img) => {
+			img.addEventListener('dragstart', (e) => e.preventDefault());
+			if (!img.complete) {
+				img.addEventListener('load', scheduleNavUpdate, { once: true });
+			}
+		});
+
+		// Recalculate on load and when sizes change
+		window.addEventListener('load', scheduleNavUpdate);
+		if ('ResizeObserver' in window) {
+			const ro = new ResizeObserver(scheduleNavUpdate);
+			ro.observe(viewport);
+			ro.observe(track);
+		}
+
+		// Initial state
+		scheduleNavUpdate();
+	};
+
+	const initAll = () => {
+		document.querySelectorAll('[data-slider]').forEach((root) => initSlider(root));
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initAll, { once: true });
+	} else {
+		initAll();
+	}
+	})();
+</script> </div> <div class="content space-y-4" data-astro-cid-mx25p445>  <p>1000 dažniausiai naudojamų lietuviškų žodžių (ir jų linksnių) → naudotojas įrašo, įklijuoja žodžius → tikrinama kurie žodžiai nepatenka į sąrašą → žodžiai paryškinami.</p>
+<p>Galima paspausti ant netinkamų žodžių sąrašo apačioje, kad būtų patogu žodį perrašyti. Įcopypastinant tekstą nuimamas formatavimas.</p>
+<p>Įrankis buvo atnaujintas 2016 metais. Iki tol dizainui, teksto laukui naudotas <a href="https://ace.c9.io">ACE</a>.</p>  </div> </article>  </div> </section> </div> </section>  </main> <footer class="mt-12"> <a href="https://notbyai.fyi" target="_blank" rel="noopener"> <img src="/notbyai.png" srcset="/notbyai.png 1x, /notbyai@2x.png 2x" alt="Not by AI" width="132" height="43"> </a> </footer> </body></html> 
