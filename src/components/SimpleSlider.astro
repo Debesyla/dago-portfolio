@@ -47,6 +47,11 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 				))}
 			</div>
 		</div>
+		{items.length > 1 && (
+			<div class="slide-counter text-sm absolute bottom-0 right-0 bg-bg px-2 py-1 select-none pointer-events-none" data-slider-counter aria-live="polite">
+				1 / {items.length}
+			</div>
+		)}
 	</section>
 )}
 
@@ -55,11 +60,33 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 	const RAFT = (cb) => requestAnimationFrame(cb);
 
 	const initSlider = (root) => {
+		if (root.dataset.sliderInitialized === 'true') return;
 		const viewport = root.querySelector('.viewport');
 		const track = root.querySelector('.track');
 		const prev = root.querySelector('.nav.prev');
 		const next = root.querySelector('.nav.next');
+		const counter = root.querySelector('[data-slider-counter]');
 		if (!viewport || !track || !prev || !next) return;
+		root.dataset.sliderInitialized = 'true';
+
+		const slides = Array.from(track.children);
+		const totalSlides = slides.length;
+		const updateCounter = () => {
+			if (!counter || totalSlides === 0) return;
+			const scrollLeft = viewport.scrollLeft;
+			let nearestIndex = 0;
+			let minDistance = Infinity;
+			slides.forEach((slide, index) => {
+				const offset = slide instanceof HTMLElement ? slide.offsetLeft : 0;
+				const distance = Math.abs(offset - scrollLeft);
+				if (distance < minDistance) {
+					minDistance = distance;
+					nearestIndex = index;
+				}
+			});
+			const current = Math.max(1, Math.min(totalSlides, nearestIndex + 1));
+			counter.textContent = `${current} / ${totalSlides}`;
+		};
 
 		let navUpdatePending = false;
 		const getMax = () => Math.max(0, viewport.scrollWidth - viewport.clientWidth);
@@ -76,6 +103,7 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 			// Toggle disabled state for prev/next buttons
 			prev.classList.toggle('disabled', atStart);
 			next.classList.toggle('disabled', atEnd);
+			updateCounter();
 
 			navUpdatePending = false;
 		};
@@ -201,6 +229,7 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 
 		// Initial state
 		scheduleNavUpdate();
+		updateCounter();
 	};
 
 	const initAll = () => {
@@ -242,6 +271,7 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 	.slide {
 		flex: 0 0 100%;
 		scroll-snap-align: start;
+		scroll-snap-stop: always;
 		padding: 0;
 		margin: 0;
 	}
