@@ -135,6 +135,10 @@ export default defineConfig({
             font-size: .75em
           }
 
+          li + li {
+            margin-top: var(--sm)
+          }
+
           ::selection {
             background: ${colors.primary || "#ffbf00"};
             color: ${colors.bg || "#222"}
@@ -157,6 +161,33 @@ export default defineConfig({
             .active &, &[aria-pressed="true"] {
               background: ${colors.primary || "#ffbf00"};
               color: ${colors.bg || "#222"};
+            }
+          }
+
+          details {
+            border: 1px solid ${colors.primary || "#ffbf00"};
+            padding: var(--md) var(--lg);
+            margin: var(--md) 0;
+
+            &[open] > main {
+              margin-top: var(--md);
+              margin-bottom: var(--sm);
+            }
+
+            summary {
+              list-style-type: none;
+
+              &:hover,
+              &:focus-visible {
+                text-decoration: underline;
+                text-underline-offset: var(--xs);
+                text-decoration-style: dashed;
+                cursor: pointer;
+              }
+
+              & > * {
+                display: inline;
+              }
             }
           }
         `;
