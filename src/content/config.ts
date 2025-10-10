@@ -17,6 +17,15 @@ const projects = defineCollection({
   }),
 });
 
+// A collection for projects under NDA; content from nda.md
+const nda = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string().optional(),
+  }),
+});
+
 export const collections = {
   projects,
+  nda,
 };

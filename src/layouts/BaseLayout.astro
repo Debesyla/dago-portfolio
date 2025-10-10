@@ -4,6 +4,12 @@ export interface Props {
 }
 
 const { title = "dago / portfolio" } = Astro.props;
+
+// Load NDA list content (editable at src/content/nda/nda.md)
+import { getEntry } from 'astro:content';
+const ndaEntry = await getEntry('nda', 'nda');
+const NDAContent = ndaEntry ? (await ndaEntry.render()).Content : null;
+const ndaTitle = (ndaEntry && ndaEntry.data && ndaEntry.data.title) ? ndaEntry.data.title : '→ O štai čia kiti projektai, kurių negaliu įvardinti dėl NDA ←';
 ---
 
 <!DOCTYPE html>
@@ -32,20 +38,17 @@ const { title = "dago / portfolio" } = Astro.props;
       <slot />
     </main>
 
-    <aside class="mt-12">
-      <details>
-        <summary><h2>→ O štai čia kiti projektai, kurių negaliu įvardinti dėl NDA ←</h2></summary>
-
-        <main>
-          <ul>
-            <li><strong>Svetainė su krovinių pervežimo skaičiuoklėmis (atstumas, trukmė, kaina):</strong> WordPress, Guttenberg, API</li>
-            <li><strong>El. parduotuvė su tiekėjų duombazių importavimu:</strong> WordPress, Elementor, WooCommerce, Rivile, API, XML</li>
-            <li><strong>Reprezentacinė svetainė su PDF dokumentacijos archyvu ir paieška:</strong> WordPress, Thrive Architect + Custom plugin katalogų įkėlimui, indeksavimui, paieškai.</li>
-            <li><strong>Reprezentacinės svetainės, įvairios (x11):</strong> WordPress + Bricks / Elementor / Thrive Architect / Beaver Builder; pagal klientų pageidavimą.</li>
-          </ul>
-        </main>
-      </details>
-    </aside>
+    {/* NDA list section: content comes from src/content/nda/nda.md */}
+    {NDAContent && (
+      <aside class="mt-12">
+        <details>
+          <summary><h2>{ndaTitle}</h2></summary>
+          <main>
+            <NDAContent />
+          </main>
+        </details>
+      </aside>
+    )}
 
     <footer class="mt-12">
       <a href="https://notbyai.fyi" target="_blank" rel="noopener">
