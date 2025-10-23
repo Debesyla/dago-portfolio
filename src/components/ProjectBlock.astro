@@ -43,9 +43,11 @@ const tags = stack.join(',');
         ))}
       </ul>
       
-      <time datetime={date} class="">{formatted}</time>
+      <div class="flex gap-x-6 gap-y-2 flex-wrap">
+        <time datetime={date} class="">{formatted}</time>
 
-      {users && <span class="users">{users}</span>}
+        {users && <span class="users">{users}</span>}
+      </div>
     </div>
   </header>
 
