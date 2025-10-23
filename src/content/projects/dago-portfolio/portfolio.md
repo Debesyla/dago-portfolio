@@ -3,7 +3,7 @@ title: "/portfolio"
 date: 2025-10-01
 users: ~5 / mėn. naudotojų
 url: https://portfolio.dago.lt/
-stack: ["Astro", "Markdown", "Obsidian", "UnoCSS"]
+stack: ["Astro", "UnoCSS", "Markdown", "Obsidian"]
 # screens:
 #   - image: ./portfolio-1.png
 #     alt: "„/portfolio“ puslapis su įvykdytais projektais ir technologijų filtru."
