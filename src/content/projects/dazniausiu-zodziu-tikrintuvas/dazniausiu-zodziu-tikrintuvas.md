@@ -1,7 +1,7 @@
 ---
 title: Dažniausių lietuviškų žodžių tikrintuvas
 date: 2013-12-01
-users: ~400 naudotojų
+users: ~20 / mėn. naudotojų
 url: https://kaipisleistiknyga.lt/rasyk-aiskiau/
 stack:
   - jQuery
