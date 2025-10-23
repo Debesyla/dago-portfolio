@@ -57,7 +57,7 @@ const tags = stack.join(',');
       </div>
     )}
 
-  <div class="content space-y-4">
+  <div class="content space-y-4 lt-sm:text-sm lt-sm:leading-normal">
     <slot />
   </div>
 </article>
@@ -74,5 +74,14 @@ const tags = stack.join(',');
     width: 0.5rem;
     height: 0.5rem;
     background: currentColor;
+  }
+
+  @media (max-width: 639.9px) {
+    .timeline-dot {
+      left: 0.5em;
+      top: 0.75em; /* aligning with heading */
+      width: 0.375rem;
+      height: 0.375rem;
+    }
   }
 </style>

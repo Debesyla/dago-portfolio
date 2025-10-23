@@ -41,14 +41,14 @@ const { items = [], ariaLabel = 'Screenshots' } = Astro.props as Props;
 						<Image src={item.image} alt={item.alt || ''} class="slide-img" draggable={false} />
 
 						{item.caption && (
-							<figcaption class="text-sm absolute bottom-0 left-0 bg-bg px-2 py-1 select-none pointer-events-none">{item.caption}</figcaption>
+							<figcaption class="text-xs absolute bottom-0 left-0 bg-bg pl-1 pr-2 py-1 select-none pointer-events-none">{item.caption}</figcaption>
 						)}
 					</figure>
 				))}
 			</div>
 		</div>
 		{items.length > 1 && (
-			<div class="slide-counter text-sm absolute bottom-0 right-0 bg-bg px-2 py-1 select-none pointer-events-none" data-slider-counter aria-live="polite">
+			<div class="slide-counter text-xs absolute bottom-0 right-0 bg-bg pl-2 pr-1 py-1 select-none pointer-events-none" data-slider-counter aria-live="polite">
 				1 / {items.length}
 			</div>
 		)}

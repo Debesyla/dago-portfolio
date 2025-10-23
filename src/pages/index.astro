@@ -41,7 +41,7 @@ const uniqueTags = Array.from(new Set(projects.flatMap(p => p.data.stack))).sort
     {projects.length > 0 ? (
       <FilterBar tags={uniqueTags} />
 
-      <div class="timeline relative space-y-20">
+      <div class="timeline relative space-y-20 lt-sm:-ml-1.5em">
         {years.map((y) => (
           <section class="year-section">
             <h2 class="year sticky top-2 z-10 bg-bg pl-[calc(1.25rem_-_2px)] pr-2 py-2 inline-block leading-none">{y}</h2>
@@ -82,5 +82,17 @@ const uniqueTags = Array.from(new Set(projects.flatMap(p => p.data.stack))).sort
     bottom: 0;
     width: 1px;
     background: color-mix(in oklab, currentColor 20%, transparent);
+  }
+
+  @media (max-width: 639.9px) {
+    .year {
+      border-left-width: 0.375rem;
+      margin-left: calc(0.5em / 1.5); /* aligns with timeline line on small screens and 1.5 is the em of h2, that is parent of this class */
+      padding-left: 0.5em;
+    }
+
+    .timeline::before {
+      left: calc(0.5em + 0.375rem / 2 - 1px);
+    }
   }
 </style>

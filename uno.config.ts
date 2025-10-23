@@ -153,9 +153,11 @@ export default defineConfig({
             user-select: none;
             
 
-            &:hover {
-              background: ${colors.primary || "#ffbf00"};
-              color: ${colors.bg || "#222"};
+            @media (hover: hover) {
+              &:hover {
+                background: ${colors.primary || "#ffbf00"};
+                color: ${colors.bg || "#222"};
+              }
             }
 
             .active &, &[aria-pressed="true"] {
@@ -174,19 +176,49 @@ export default defineConfig({
               margin-bottom: var(--sm);
             }
 
+            @media (max-width: 639.9px) {
+              padding: var(--md) var(--md);
+
+              main {
+                font-size: 0.875em;
+                line-height: 1.5;
+
+                ul, ol {
+                  list-style: none;
+                  padding-left: 0;
+
+                  li + li {
+                    margin-top: var(--md);
+                  }
+                }
+              }
+            }
+
             summary {
               list-style-type: none;
 
-              &:hover,
               &:focus-visible {
-                text-decoration: underline;
+                text-decoration: underline dashed;
                 text-underline-offset: var(--xs);
-                text-decoration-style: dashed;
                 cursor: pointer;
+              }
+
+              @media (hover: hover) {
+                &:hover {
+                  text-decoration: underline dashed;
+                  text-underline-offset: var(--xs);
+                  cursor: pointer;
+                }
               }
 
               & > * {
                 display: inline;
+              }
+
+              @media (max-width: 639.9px) {
+                h2 {
+                  font-size: 1.25em;
+                }
               }
             }
           }
