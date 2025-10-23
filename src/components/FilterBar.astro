@@ -4,7 +4,6 @@ export interface Props {
 }
 
 const { tags = [] } = Astro.props as Props;
-const sorted = [...tags].sort((a, b) => a.localeCompare(b));
 ---
 
 <div class="filterbar text-sm space-y-2" data-filterbar>
@@ -15,7 +14,7 @@ const sorted = [...tags].sort((a, b) => a.localeCompare(b));
   </div>
 
   <div class="flex flex-wrap gap-2">
-    {sorted.map((t) => (
+    {tags.map((t) => (
       <button class="tag-btn" type="button" data-tag={t} data-tag-lc={t.toLowerCase()} aria-pressed="false">{t}</button>
     ))}
   </div>
