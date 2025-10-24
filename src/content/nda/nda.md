@@ -1,5 +1,5 @@
 ---
-title: → O štai čia kiti projektai, kurių negaliu įvardinti dėl NDA ←
+title: → O čia kiti projektai, kurių negaliu įvardinti dėl NDA (2012-2025...) ←
 ---
 
 - 2025: **Migracija Shopify → WooCommerce:** Shopify, WP / WooCommerce, data migration / cleanup, SEO redirects.
