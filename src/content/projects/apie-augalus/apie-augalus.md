@@ -6,7 +6,6 @@ url: https://apieaugalus.lt/
 stack: ["WordPress", "WP / Theme", "WP / Plugin", "Tailwind", "REST API", "ChatGPT", "DeepL"]
 screens:
   - image: ./apie-augalus-1.png
-    caption: "Titulinis"
     alt: "Augalų sąrašas, suskirstytas pagal šeimas."
   - image: ./apie-augalus-2.png
     caption: "Augalo aprašymas"

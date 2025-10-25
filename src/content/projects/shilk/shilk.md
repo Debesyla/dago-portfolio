@@ -6,7 +6,6 @@ url: https://shilk.lt
 stack: ["WordPress", "WP / Plugin"]
 screens:
   - image: ./shilk-1.png
-    caption: "Titulinis puslapis su produkto pristatymu"
     alt: "SHILK pagrindinis puslapis su geoterminio šilumos siurblio nuotrauka ir pagrindiniu šūkiu."
 
   - image: ./shilk-2.png

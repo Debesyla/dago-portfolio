@@ -6,7 +6,7 @@ url: https://ewa.lt/
 stack: ["WordPress", "WP / Theme", "WP / Gutenberg", "Tailwind"]
 screens:
   - image: ./ewa-1.png
-    caption: "Titulinis, video, logo efektai"
+    caption: "Video + logo efektai"
     alt: "EWA pagrindinis puslapis su traktoriaus nuotrauka ir raudonais šviesos efektais."
 
   - image: ./ewa-2.png
@@ -24,4 +24,4 @@ screens:
 
 Reprezentacinė svetainė su prekių katalogais ir finansavimo skaičiuoklėmis: tikėtina paskolos suma, mokėjimų grafiku, galimybe šį išsisaugoti.
 
-WordPress pagrindo su pilnai custom theme paremtu [Gutenberg](https://wordpress.org/gutenberg/), kad administratoriai galėtų redaguoti visą svetainės turinį.
+WordPress pagrindo su pilnai custom theme, paremtu [Gutenberg](https://wordpress.org/gutenberg/), kad administratoriai galėtų redaguoti visą svetainės turinį.
