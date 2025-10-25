@@ -1,6 +1,6 @@
 ---
 title: "EWA: svetainė ir paskolų skaičiuoklė"
-date: 2024-01-10
+date: 2024-02-05
 users: ~8500 / mėn. naudotojų
 url: https://ewa.lt/
 stack: ["WordPress", "WP / Theme", "WP / Gutenberg", "Tailwind"]
