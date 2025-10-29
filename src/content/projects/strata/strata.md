@@ -3,7 +3,7 @@ title: "Strata"
 date: 2023-12-21
 users: ~4000 / mėn. naudotojų
 url: https://strata.gov.lt
-stack: ["WordPress", "WP / Theme", "WP / Gutenberg", "Tailwind"]
+stack: ["WordPress", "WP / Theme", "Tailwind"]
 screens:
   - image: ./strata-1.png
     alt: "STRATA svetainės titulinis puslapis su šūkiu „Kuriame pamatus pagrįstiems ir įžvalgiems viešosios politikos sprendimams“ ir komandos darbo stalo nuotrauka."
