@@ -1,9 +1,9 @@
 ---
 title: "Test Project"
-date: 2025-10-01
+date: 2000-10-01
 users: "Internal testing"
 url: https://example.com
-stack: ["Astro", "TypeScript", "UnoCSS"]
+stack: ["Astro", "UnoCSS"]
 screens:
   - image: ./test-file.png
     caption: "Test caption"
