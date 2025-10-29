@@ -1,5 +1,5 @@
 ---
-title: "Adface: svetainė + skaičiuoklės + klausimynai"
+title: "Adface: svetainė, skaičiuoklės ir klausimynai"
 date: 2023-10-01
 users: "~1500 / mėn. naudotojų"
 url: https://adface.lt
