@@ -22,6 +22,6 @@ screens:
     alt: "EWA preliminarių mokėjimų grafiko puslapis su duomenų lentele ir PDF išsaugojimo funkcija."
 ---
 
-Reprezentacinė svetainė su prekių katalogais ir finansavimo skaičiuoklėmis: tikėtina paskolos suma, mokėjimų grafiku, galimybe šį išsisaugoti.
+Reprezentacinė svetainė su prekių katalogais ir finansavimo skaičiuoklėmis: tikėtina paskolos suma, mokėjimų grafiku, galimybe šį išsisaugoti. 
 
-WordPress pagrindo su pilnai custom theme, paremtu [Gutenberg](https://wordpress.org/gutenberg/), kad administratoriai galėtų redaguoti visą svetainės turinį.
+WordPress pagrindo su [Gutenberg](https://wordpress.org/gutenberg/) custom theme.

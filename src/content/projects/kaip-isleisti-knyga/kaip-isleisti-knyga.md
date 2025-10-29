@@ -19,4 +19,4 @@ screens:
 
 El. žurnalas, skirtas 4 žmonių darbui (rašymui, redagavimui) vienu metu. Interviu svečiams suteikta prieiga atsakyti į skaitytojų klausimus. 
 
-Svarbiausia – SEO, schema, svetainės greitis ir publikavimo patogumas. Papildomai – naujienlaiškio formos.
+Svarbiausia – SEO, schema, svetainės greitis ir publikavimo patogumas, naujienlaiškio formos.

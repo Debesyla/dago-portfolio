@@ -21,6 +21,6 @@ screens:
     alt: "„Strata“ svetainės tyrimų puslapis su 2023 metų studijų sąrašu, įskaitant viešojo valdymo, geopolitikos ir ekonomikos analizę."
 ---
 
-Valstybinės įstaigos svetainė projektams, naujienoms skelbti, su ypatinga svarba a11y ir GDPR reikalavimams.
+Valstybinės įstaigos svetainė projektams, naujienoms skelbti, su ypatinga svarba accessibility ir GDPR reikalavimams.
 
-WordPress pagrindo su pilnai custom theme, paremtu [Gutenberg](https://wordpress.org/gutenberg/), kad administratoriai galėtų redaguoti visą svetainės turinį.
+WordPress pagrindo su [Gutenberg](https://wordpress.org/gutenberg/) custom theme.

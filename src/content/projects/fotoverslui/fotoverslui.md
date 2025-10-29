@@ -17,6 +17,6 @@ screens:
     alt: "Svetainės paslaugų užsakymo forma su interaktyviais skaičiuoklės valdikliais ir gradientiniu fonu, leidžianti pasirinkti fotografavimo tipus bei kiekius."
 ---
 
-Reprezentacinė verslo svetainė, kur pagrindinis dėmesys buvo dizaino išlaikymui: pagal ekrano plotį keičiasi ir visi elementai, specialiai išjungta galimybė keisti zoom.
+Reprezentacinė svetainė, kur pagrindinis dėmesys buvo dizaino išlaikymui: pagal ekrano plotį keičiasi ir visi elementai, specialiai išjungta galimybė keisti zoom.
 
 WordPress pagrindo su custom theme. Turinyje įdėti 360° ir video embeds, yra užsakymų sistema.
