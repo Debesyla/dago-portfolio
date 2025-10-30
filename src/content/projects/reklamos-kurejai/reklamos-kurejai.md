@@ -3,7 +3,7 @@ title: "Reklamos kūrėjai"
 date: 2023-02-16
 users: ~1000 / mėn. naudotojų
 url: https://reklamoskurejai.lt/
-stack: ["WordPress", "WP / Theme", "Tailwind", "REST API"]
+stack: ["WordPress", "WP / Theme", "WooCommerce", "Tailwind", "REST API"]
 screens:
   - image: ./reklamos-kurejai-1.png
     caption: "Pagrindinis puslapis su kategorijomis ir statistika"

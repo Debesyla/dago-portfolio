@@ -3,7 +3,7 @@ title: "Foto verslui"
 date: 2021-11-24
 users: ~300 / mėn. naudotojų
 url: https://foto-verslui.lt
-stack: ["WordPress", "WP / Theme", "Sass"]
+stack: ["WordPress", "WP / Theme", "WooCommerce", "Sass"]
 screens:
   - image: ./fotoverslui-1.png
     alt: "Svetainės titulinis puslapis su šūkiu „Nauji nuotraukų ir vaizdo standartai Jūsų verslui“ ir raudonų Beats ausinių 3D vizualizacija."
