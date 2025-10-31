@@ -6,7 +6,6 @@ url: https://reklamoskurejai.lt/
 stack: ["WordPress", "WP / Theme", "WooCommerce", "Tailwind", "REST API"]
 screens:
   - image: ./reklamos-kurejai-1.png
-    caption: "Pagrindinis puslapis su kategorijomis ir statistika"
     alt: "Reklamos kūrėjų platformos pagrindinis puslapis su paslaugų kategorijų sąrašu, statistikos skaičiais ir mygtuku gauti pasiūlymus"
 
   - image: ./reklamos-kurejai-2.png
